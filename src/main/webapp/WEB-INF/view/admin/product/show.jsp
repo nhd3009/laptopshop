@@ -10,7 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>User Detail ${id} - Admin</title>
+                <title>Product Management - Admin</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -30,33 +30,15 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
+                                <h1 class="mt-4">Manage Products</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">User Detail</li>
+                                    <li class="breadcrumb-item active">Product Management</li>
                                 </ol>
-                                <div class="mt-5 mb-5">
-                                    <div class="row">
-                                        <div class="col-12 mx-auto">
-                                            <div class="d-flex justify-content-between">
-                                                <h3>User Detail with ID: ${id}</h3>
-                                            </div>
-                                            <hr>
-                                            <div class="card" style="width: 60%;">
-                                                <div class="card-header">
-                                                    User Infomation
-                                                </div>
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item">ID: ${id}</li>
-                                                    <li class="list-group-item">Email: ${user.email}</li>
-                                                    <li class="list-group-item">Fullname: ${user.fullName}</li>
-                                                    <li class="list-group-item">Address: ${user.address}</li>
-                                                </ul>
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                <div>
+                                    Product
                                 </div>
+                            </div>
                         </main>
 
                         <!-- Footer -->

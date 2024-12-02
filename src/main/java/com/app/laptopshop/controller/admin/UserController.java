@@ -1,62 +1,70 @@
-package com.app.laptopshop.controller;
+package com.app.laptopshop.controller.admin;
 
 import com.app.laptopshop.domain.User;
+import com.app.laptopshop.service.UploadService;
 import com.app.laptopshop.service.UserService;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final UploadService uploadService;
 
-    @GetMapping("/")
-    public String getHomePage(Model model) {
-        List<User> listUser = this.userService.getAllUsers();
-        System.out.println(listUser);
-        return "Index";
+    private final PasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService, UploadService uploadService,
+            PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // Show List User
-    @RequestMapping("/admin/user")
+    @GetMapping("/admin/user")
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users", users);
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
     // Show create User page
-    @RequestMapping("/admin/user/create")
+    @GetMapping("/admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "admin/user/create";
     }
 
     // Handle creating user
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-    public String handleCreateUser(Model model, @ModelAttribute("newUser") User user) {
-        System.out.println("Run here " + user);
-        userService.handleSaveUser(user);
+    @PostMapping(value = "/admin/user/create")
+    public String handleCreateUser(Model model, @ModelAttribute("newUser") User user,
+            @RequestParam("avatarFile") MultipartFile file) {
+
+        String avatar = uploadService.handleUploadFile(file, "avatar");
+        String hashPassword = passwordEncoder.encode(user.getPassword());
+
+        user.setAvatar(avatar);
+        user.setPassword(hashPassword);
+        user.setRole(userService.getRoleByName(user.getRole().getName()));
+
+        this.userService.handleSaveUser(user);
         return "redirect:/admin/user";
     }
 
     // Handle and Get User Detail page
-    @RequestMapping("/admin/user/{id}")
+    @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
         User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
@@ -65,7 +73,7 @@ public class UserController {
     }
 
     // Get Update user page
-    @RequestMapping("/admin/user/update/{id}")
+    @GetMapping("/admin/user/update/{id}")
     public String getUserUpdatePage(Model model, @PathVariable long id) {
         User currUser = this.userService.getUserById(id);
         model.addAttribute("updateUser", currUser);
@@ -74,12 +82,24 @@ public class UserController {
 
     // Handle Update User
     @PostMapping("/admin/user/update")
-    public String handleUpdateUser(Model model, @ModelAttribute("updateUser") User user) {
+    public String handleUpdateUser(Model model, @ModelAttribute("updateUser") User user,
+            @RequestParam("avatarFile") MultipartFile file) {
         User updateUser = this.userService.getUserById(user.getId());
         if (updateUser != null) {
             updateUser.setAddress(user.getAddress());
             updateUser.setFullName(user.getFullName());
             updateUser.setPhone(user.getPhone());
+            updateUser.setRole(userService.getRoleByName(user.getRole().getName()));
+            if (file != null && !file.isEmpty()) {
+                String oldAvatarPath = updateUser.getAvatar();
+
+                updateUser.setAvatar(uploadService.handleUploadFile(file, "avatar"));
+
+                if (oldAvatarPath != null && !oldAvatarPath.isEmpty()) {
+                    uploadService.deleteFile(oldAvatarPath);
+                }
+            }
+
             this.userService.handleSaveUser(updateUser);
         }
         return "redirect:/admin/user";
