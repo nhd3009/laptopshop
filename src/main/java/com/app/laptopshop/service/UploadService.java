@@ -20,9 +20,9 @@ public class UploadService {
         this.servletContext = servletContext;
     }
 
-    public boolean deleteFile(String filePath) {
+    public boolean deleteFile(String filePath, String targetFolder) {
         String rootPath = this.servletContext.getRealPath("/resources/images");
-        File file = new File(rootPath + File.separator + "avatar" + File.separator + filePath);
+        File file = new File(rootPath + File.separator + targetFolder + File.separator + filePath);
         if (file.exists()) {
             return file.delete();
         }
@@ -31,6 +31,10 @@ public class UploadService {
     }
 
     public String handleUploadFile(MultipartFile file, String targetFolder) {
+        if (file.isEmpty()) {
+            return "";
+        }
+
         String rootPath = this.servletContext.getRealPath("/resources/images");
         String fileName = "";
         try {

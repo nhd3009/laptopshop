@@ -4,11 +4,15 @@ import com.app.laptopshop.domain.User;
 import com.app.laptopshop.service.UploadService;
 import com.app.laptopshop.service.UserService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,8 +53,18 @@ public class UserController {
 
     // Handle creating user
     @PostMapping(value = "/admin/user/create")
-    public String handleCreateUser(Model model, @ModelAttribute("newUser") User user,
+    public String handleCreateUser(Model model, @ModelAttribute("newUser") @Valid User user,
+            BindingResult bindingResult,
             @RequestParam("avatarFile") MultipartFile file) {
+
+        List<FieldError> errors = bindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(">>>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "admin/user/create";
+        }
 
         String avatar = uploadService.handleUploadFile(file, "avatar");
         String hashPassword = passwordEncoder.encode(user.getPassword());
@@ -83,7 +97,11 @@ public class UserController {
     // Handle Update User
     @PostMapping("/admin/user/update")
     public String handleUpdateUser(Model model, @ModelAttribute("updateUser") User user,
+            BindingResult bindingResult,
             @RequestParam("avatarFile") MultipartFile file) {
+        if (bindingResult.hasErrors()) {
+            return "admin/user/update";
+        }
         User updateUser = this.userService.getUserById(user.getId());
         if (updateUser != null) {
             updateUser.setAddress(user.getAddress());
@@ -96,7 +114,7 @@ public class UserController {
                 updateUser.setAvatar(uploadService.handleUploadFile(file, "avatar"));
 
                 if (oldAvatarPath != null && !oldAvatarPath.isEmpty()) {
-                    uploadService.deleteFile(oldAvatarPath);
+                    uploadService.deleteFile(oldAvatarPath, "avatar");
                 }
             }
 
@@ -118,7 +136,12 @@ public class UserController {
     // Handle Delete user
     @PostMapping("/admin/user/delete")
     public String handleDeleteUserPage(Model model, @ModelAttribute("deleteUser") User user) {
-        this.userService.deleteUser(user.getId());
+        User deleteUser = userService.getUserById(user.getId());
+        String oldImagePath = deleteUser.getAvatar();
+        if (oldImagePath != null && !oldImagePath.isEmpty()) {
+            uploadService.deleteFile(oldImagePath, "avatar");
+        }
+        userService.deleteUser(user.getId());
         return "redirect:/admin/user";
     }
 }

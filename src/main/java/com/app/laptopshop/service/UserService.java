@@ -21,8 +21,7 @@ public class UserService {
     }
 
     public User handleSaveUser(User user) {
-        User createdUser = userRepository.save(user);
-        return createdUser;
+        return userRepository.save(user);
     }
 
     public List<User> getAllUsers() {

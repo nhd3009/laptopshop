@@ -9,7 +9,6 @@ import com.app.laptopshop.domain.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User save(User user);
 
     void deleteById(long id);
 
