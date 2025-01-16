@@ -50,7 +50,7 @@
                                 <div class="mt-5 mb-5">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Create a user</h3>
+                                            <h3>Update a product</h3>
                                             <hr>
                                             <form:form method="post" action="/admin/product/update"
                                                 modelAttribute="currProduct" enctype="multipart/form-data">
@@ -128,11 +128,12 @@
                                                     <label class="form-label">Target:</label>
                                                     <form:select class="form-select" path="target"
                                                         aria-label="Default select example">
-                                                        <form:option value="APPLE">Gaming</form:option>
-                                                        <form:option value="ASUS">IT - Office</form:option>
-                                                        <form:option value="ACER">Graphic - Designer</form:option>
-                                                        <form:option value="ACER">Thin & Slim</form:option>
-                                                        <form:option value="ACER">Bussiness</form:option>
+                                                        <form:option value="Gaming">Gaming</form:option>
+                                                        <form:option value="IT - Office">IT - Office</form:option>
+                                                        <form:option value="Graphic - Designer">Graphic - Designer
+                                                        </form:option>
+                                                        <form:option value="Thin & Slim">Thin & Slim</form:option>
+                                                        <form:option value="Business">Business</form:option>
                                                     </form:select>
                                                 </div>
                                                 <div class="mb-3">
