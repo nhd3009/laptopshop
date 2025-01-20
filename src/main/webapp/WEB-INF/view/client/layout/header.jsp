@@ -6,7 +6,7 @@
         <div class="container-fluid fixed-top shadow">
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand">
+                    <a href="${scheme}://${serverName}:${serverPort}" class="navbar-brand">
                         <h1 class="text-primary display-6">:3ildLaptop</h1>
                     </a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -20,7 +20,7 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Category</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="cart.html" class="dropdown-item">Cart</a>
+                                    <a href="/cart" class="dropdown-item">Cart</a>
                                     <a href="chackout.html" class="dropdown-item">Chackout</a>
                                     <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                                     <a href="404.html" class="dropdown-item">404 Page</a>

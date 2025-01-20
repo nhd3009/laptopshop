@@ -15,8 +15,6 @@ import com.app.laptopshop.domain.DTO.RegisterDTO;
 import com.app.laptopshop.service.ProductService;
 import com.app.laptopshop.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,4 +68,5 @@ public class HomePageController {
     public String getLoginPage(Model model) {
         return "client/auth/login";
     }
+
 }
