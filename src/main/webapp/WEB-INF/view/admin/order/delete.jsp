@@ -10,7 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>Delete Product - Admin</title>
+                <title>Delete Order - Admin</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -30,23 +30,23 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Products</h1>
+                                <h1 class="mt-4">Manage Orders</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Delete Product</li>
+                                    <li class="breadcrumb-item active">Delete Order</li>
                                 </ol>
                                 <div class="mt-5 mb-5">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
                                             <div class="d-flex justify-content-between">
-                                                <h3>Delete the product with ID: ${id}</h3>
+                                                <h3>Delete the order with ID: ${id}</h3>
                                             </div>
                                             <hr>
                                             <div class="alert alert-danger">
-                                                Are you sure to delete this Product?
+                                                Are you sure to delete this Order?
                                             </div>
-                                            <form:form method="post" action="/admin/product/delete"
-                                                modelAttribute="deleteProduct">
+                                            <form:form method="post" action="/admin/order/delete"
+                                                modelAttribute="deleteOrder">
                                                 <div class="mb-3" style="display: none;">
                                                     <label class="form-label">ID</label>
                                                     <form:input type="text" class="form-control" path="id" />

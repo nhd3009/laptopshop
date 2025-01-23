@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.app.laptopshop.domain.Cart;
 import com.app.laptopshop.domain.CartDetail;
 import com.app.laptopshop.domain.User;
-import com.app.laptopshop.service.ProductService;
+import com.app.laptopshop.service.CartService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -20,10 +20,10 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class CartController {
 
-    private final ProductService productService;
+    private final CartService cartService;
 
-    public CartController(ProductService productService) {
-        this.productService = productService;
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
     }
 
     @GetMapping("/cart")
@@ -34,7 +34,7 @@ public class CartController {
         long id = (long) session.getAttribute("id");
         currentUser.setId(id);
 
-        Cart cart = productService.fetchByUser(currentUser);
+        Cart cart = cartService.fetchByUser(currentUser);
         List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
 
         double totalPrice = 0;
@@ -44,6 +44,7 @@ public class CartController {
 
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("cart", cart);
         return "client/cart/cart";
     }
 
@@ -52,7 +53,7 @@ public class CartController {
         HttpSession session = request.getSession();
         long productId = id;
         String email = (String) session.getAttribute("email");
-        productService.handleAddProductToCart(email, productId, session);
+        cartService.handleAddProductToCart(email, productId, session);
         return "redirect:/";
     }
 
@@ -60,7 +61,7 @@ public class CartController {
     public String postMethodName(@PathVariable long id, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         long cartDetailId = id;
-        productService.handleRemoveCartDetail(cartDetailId, session);
+        cartService.handleRemoveCartDetail(cartDetailId, session);
         return "redirect:/cart";
     }
 
