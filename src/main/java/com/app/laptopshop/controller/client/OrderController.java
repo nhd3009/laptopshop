@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.app.laptopshop.domain.Cart;
 import com.app.laptopshop.domain.CartDetail;
+import com.app.laptopshop.domain.Order;
 import com.app.laptopshop.domain.User;
 import com.app.laptopshop.service.CartService;
 import com.app.laptopshop.service.OrderService;
@@ -70,6 +71,18 @@ public class OrderController {
         orderService.handlePlaceOrder(currentUser, session, recipientName, recipientAddress, recipientPhone);
 
         return "redirect:thank-you";
+    }
+
+    @GetMapping("/order-history")
+    public String getOrderHistoryPage(Model model, HttpServletRequest request) {
+        User currentUser = new User();
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+        List<Order> orders = orderService.fetchOrderByUser(currentUser);
+        model.addAttribute("orders", orders);
+
+        return "client/order/order-history";
     }
 
     @GetMapping("/thank-you")

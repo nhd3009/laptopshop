@@ -108,4 +108,8 @@ public class OrderService {
         }
     }
 
+    public List<Order> fetchOrderByUser(User user) {
+        return this.orderRepository.findByUser(user);
+    }
+
 }
