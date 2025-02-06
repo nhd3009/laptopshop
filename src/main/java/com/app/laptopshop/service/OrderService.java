@@ -3,6 +3,8 @@ package com.app.laptopshop.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.app.laptopshop.domain.Cart;
@@ -33,8 +35,8 @@ public class OrderService {
         this.cartDetailRepository = cartDetailRepository;
     }
 
-    public List<Order> fetchAllOrders() {
-        return orderRepository.findAll();
+    public Page<Order> fetchAllOrders(Pageable pageable) {
+        return orderRepository.findAll(pageable);
     }
 
     public Optional<Order> fetchOrderById(long id) {

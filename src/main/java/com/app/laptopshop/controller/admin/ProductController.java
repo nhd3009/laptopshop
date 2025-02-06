@@ -1,7 +1,11 @@
 package com.app.laptopshop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,9 +36,25 @@ public class ProductController {
 
     // Get List Product
     @GetMapping("/admin/product")
-    public String getDashboard(Model model) {
-        List<Product> products = productService.fetchProducts();
-        model.addAttribute("products", products);
+    public String getDashboard(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            }
+        } catch (Exception e) {
+
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, 2);
+
+        Page<Product> products = productService.fetchProducts(pageable);
+
+        List<Product> listProducts = products.getContent();
+        model.addAttribute("products", listProducts);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", products.getTotalPages());
         return "admin/product/show";
     }
 
