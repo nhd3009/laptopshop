@@ -16,7 +16,7 @@
                     <div class="collapse navbar-collapse bg-white justify-content-between mx-5" id="navbarCollapse">
                         <div class="navbar-nav">
                             <a href="${scheme}://${serverName}:${serverPort}" class="nav-item nav-link active">Home</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Product</a>
+                            <a href="/products" class="nav-item nav-link">Product</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Category</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
