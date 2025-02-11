@@ -1,7 +1,7 @@
 # Laptop E-commerce Website
 
 ## Project Overview
-This is a laptop e-commerce website built using Spring MVC and MySQL while I was learning about Spring. The website allows users to browse products, add them to the cart, place orders, filter products, paginate results, and includes an admin panel for management. 
+This is a s1mple laptop e-commerce website built using Spring MVC and MySQL while I was learning about Spring. The website allows users to browse products, add them to the cart, place orders, filter products, paginate results, and includes an admin panel for management. 
 
 ## Features
 - **View Products:** Users can browse a list of available laptops.
