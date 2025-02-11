@@ -46,7 +46,7 @@ public class ProductController {
 
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 2);
+        Pageable pageable = PageRequest.of(page - 1, 6);
 
         Page<Product> products = productService.fetchProducts(pageable);
 

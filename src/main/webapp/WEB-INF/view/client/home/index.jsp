@@ -106,9 +106,9 @@
                                                                 <div class="fruite-img">
                                                                     <a href="/product/${product.id}">
                                                                         <img src="/images/product/${product.image}"
+                                                                            style="height: 200px; object-fit: cover;"
                                                                             class="img-fluid w-100 rounded-top" alt="">
                                                                     </a>
-
                                                                 </div>
                                                                 <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                                     style="top: 10px; left: 10px;">Laptop</div>
