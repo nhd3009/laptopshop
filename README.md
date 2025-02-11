@@ -38,3 +38,20 @@ spring.datasource.password=yourpassword
    - ```http://localhost:8080```
 
 ## Screenshots:
+- Client side
+![image](https://github.com/user-attachments/assets/e7d7cd88-7043-4fe4-acd2-151b1f196c90)
+
+- Cart
+![image](https://github.com/user-attachments/assets/6faebfd2-3a56-40bf-ab95-65d51d1037bd)
+
+- Order History
+![image](https://github.com/user-attachments/assets/f0cc3b71-ca34-45d5-9bbc-baa3bda220af)
+
+- Product Detail
+![image](https://github.com/user-attachments/assets/425d6601-539f-4261-8654-cb5bd9933b54)
+
+- Browse Product
+![image](https://github.com/user-attachments/assets/6592eef8-2898-4cc2-962e-ea2a23facd38)
+
+- Admin Panel
+![image](https://github.com/user-attachments/assets/269490cc-863a-43e9-a316-a7a8e4b2e66f)
