@@ -26,16 +26,21 @@ This is a s1mple laptop e-commerce website built using Spring MVC and MySQL whil
 ## Installation & Setup
 1. Clone the repo:
    - ```git clone https://github.com/nhd3009/laptopshop.git```
-2. Configure the database in application.properties:
+2. Import the sql file in MySQL
+3. Configure the database in application.properties:
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/your_database
 spring.datasource.username=your_username
 spring.datasource.password=yourpassword
 ```
-3. Run the application
+4. Run the application
    - ```mvn spring-boot:run```
-4. Access the website via browser:
+5. Access the website via browser:
    - ```http://localhost:8080```
+   - **Admin account:** admin@gmail.com
+   - **Admin password:** admin
+   - **User account:** user@gmail.com
+   - **User password:** user
 
 ## Screenshots:
 - Client side
